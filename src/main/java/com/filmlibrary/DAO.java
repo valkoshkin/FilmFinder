@@ -190,8 +190,8 @@ public class DAO {
 
     public static void main(String[] arg) {
         DAO dao = new DAO();
-        //dao.getNumOfProjects("film", 1);
-        System.out.println(dao.getNumOfProjects("film", 1));
+        ArrayList<EntityDB> list = dao.getAllEntity(new Film());
+        System.out.println(list.get(1));
     }
 }
 
