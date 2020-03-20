@@ -34,22 +34,24 @@
     <br><br>
     Длина: <input value="<%if(film!=null) out.print(film.getLength()); %>" name="length">
     <br><br>
-    Выберите личностей, которые участвовали в создании фильма:
     <%
-        out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
-        out.println("<table  id=\"centerPlacement\" border=\"1\"><tbody>");
-        out.println("<tr><th></th><th>Позиция</th><th>Имя</th><th>Фамилия</th><th>Дата рождения</th><th>Страна</th></tr>");
-        for (int i = 0; i < listPerson.size(); i++) {
-            Object o = listPerson.get(i);
-            Person person = (Person) o;
-            out.println("<tr><td><input type=\"checkBox\" name=\"check" + person.getId() + "\"  value=\"" + person.getId() + "\" >" +
-                    "</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюссер\">Продюссер</option><option value=\"Сценарист\">Сценарист</option></select>" +
-                    "</td><td>" + person.getFirstName() +
-                    "</td><td>" + person.getLastName() +
-                    "</td><td>" + person.getBirthday() +
-                    "</td><td>" + person.getCountry());
+        if (request.getParameter("action") != null){
+            out.println("Выберите личностей, которые участвовали в создании фильма:");
+            out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
+            out.println("<table  id=\"centerPlacement\" border=\"1\"><tbody>");
+            out.println("<tr><th></th><th>Позиция</th><th>Имя</th><th>Фамилия</th><th>Дата рождения</th><th>Страна</th></tr>");
+            for (int i = 0; i < listPerson.size(); i++) {
+                Object o = listPerson.get(i);
+                Person person = (Person) o;
+                out.println("<tr><td><input type=\"checkBox\" name=\"check" + person.getId() + "\"  value=\"" + person.getId() + "\" >" +
+                        "</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюссер\">Продюссер</option><option value=\"Сценарист\">Сценарист</option></select>" +
+                        "</td><td>" + person.getFirstName() +
+                        "</td><td>" + person.getLastName() +
+                        "</td><td>" + person.getBirthday() +
+                        "</td><td>" + person.getCountry());
+            }
+            out.println("</tbody></table>");
         }
-        out.println("</tbody></table>");
     %>
     <div style="padding: 5px;">
         <button type="submit">Сохранить</button>
