@@ -16,7 +16,6 @@
 <jsp:useBean id="filmsAsDirector" class="java.util.ArrayList" scope="application"/>
 <jsp:useBean id="serialsAsActor" class="java.util.ArrayList" scope="application"/>
 <jsp:useBean id="serialsAsDirector" class="java.util.ArrayList" scope="application"/>
-<h1> Информация </h1>
 <%
     if (request.getParameter("action") != null) {
         DAO dao = new DAO();
@@ -34,7 +33,7 @@
 <form method='POST' action='personView.jsp'>
     <input type="hidden" readonly name="personId" value="<%if(person!=null)out.print(person.getId());%>"/>
     <input type="hidden" name="action" value="<% if(person!=null) out.print("Edit"); else out.print("Add");%>"/>
-    <h3><% if(person!=null) out.print(person.getFirstName());%> <% if(person!=null) out.print(person.getLastName());%></h3>
+    <h2><% if(person!=null) out.print(person.getFirstName());%> <% if(person!=null) out.print(person.getLastName());%></h2>
     <b>Страна:</b> <% if(person!=null) out.print(person.getCountry());%>
     <br><br>
     <b>Дата рождения:</b> <%= person.getBirthday()%>

@@ -117,7 +117,8 @@
                 "</td><td>" + serial.getNumEpisodes() +
                 "</td><td>" + serial.getNumSeasons() +
                 "</td><td>" + serial.getImdb() +
-                "</td><td> <form action=\"inputSerial.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + serial.getId() + "\">Редактировать</button> </form>");
+                "</td><td> <form action=\"inputSerial.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + serial.getId() + "\">Edit</button> </form>" +
+                "<form action=\"serialInfo.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + serial.getId() + "\">Info</button> </form></td>");
     }
     out.println("</tbody></table></body>");
     out.println("</html>");

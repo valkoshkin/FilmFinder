@@ -106,7 +106,8 @@
                 "</td><td>" + film.getIssueYear() +
                 "</td><td>" + film.getImdb() +
                 "</td><td>" + film.getLength() +
-                "</td><td> <form action=\"inputFilm.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + film.getId() + "\">Редактировать</button> </form>");
+                "</td><td> <form action=\"inputFilm.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + film.getId() + "\">Edit</button></form>" +
+                "<form action=\"filmInfo.jsp\" method=\"post\"><button type=\"submit\" name=\"action\" value=\"" + film.getId() + "\">Info</button></form>");
     }
     out.println("</tbody></table></body>");
     out.println("</html>");
