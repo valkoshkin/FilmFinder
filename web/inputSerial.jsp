@@ -49,7 +49,7 @@
                 Object o = listPerson.get(i);
                 Person person = (Person) o;
                 out.println("<tr><td><input type=\"checkBox\" name=\"check" + person.getId() + "\"  value=\"" + person.getId() + "\" >" +
-                        "</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюссер\">Продюссер</option><option value=\"Сценарист\">Сценарист</option></select>" +
+                        "</td><td> <select name=\"position" + person.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>" +
                         "</td><td>" + person.getFirstName() +
                         "</td><td>" + person.getLastName() +
                         "</td><td>" + person.getBirthday() +

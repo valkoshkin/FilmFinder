@@ -76,7 +76,7 @@
                 Object o = listSerial.get(i);
                 Serial serial = (Serial) o;
                 out.println("<tr><td><input type=\"checkBox\" name=\"checkSerial" + serial.getId() + "\"  value=\"" + serial.getId() + "\" >" +
-                        "</td><td> <select name=\"positionSerial" + serial.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюссер\">Продюссер</option><option value=\"Сценарист\">Сценарист</option></select>" +
+                        "</td><td> <select name=\"positionSerial" + serial.getId() + "\"> <option value=\"Актер\">Актер</option><option value=\"Режиссер\">Режиссер</option><option value=\"Продюсер\">Продюсер</option><option value=\"Сценарист\">Сценарист</option></select>" +
                         "</td><td>" + serial.getTitle() +
                         "</td><td>" + serial.getYearStart() +
                         "</td><td>" + serial.getYearFinish() +
