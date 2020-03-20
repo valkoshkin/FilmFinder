@@ -46,7 +46,7 @@
         </script>
     </datalist>
     <br><br>
-    Дата рождения:<input type="date" value="<% %>" name="birthday">
+    Дата рождения:<input type="date" value="<%if(person!=null) out.print(person.getBirthday()); %>" name="birthday">
     <br><br>
 
     <%
