@@ -30,7 +30,12 @@
 <jsp:include page="_menu.jsp"/>
 <%@page import="com.filmlibrary.DAO" %>
 <%@page import="com.filmlibrary.entities.Serial" %>
+<%@ page import="com.filmlibrary.entities.Position" %>
+<%@ page import="com.filmlibrary.entities.EntityDB" %>
+<%@ page import="com.filmlibrary.entities.Person" %>
+<%@ page import="java.util.ArrayList" %>
 <jsp:useBean id="listSerial" class="java.util.ArrayList" scope="application"/>
+<jsp:useBean id="listPosition" class="java.util.ArrayList" scope="application"/>
 <form action="serial.jsp" method="post">
     <input type="text" name="search">
     <select name="column">
@@ -49,6 +54,8 @@
         DAO dao = new DAO();
         request.setCharacterEncoding("UTF-8");
         listSerial = dao.getAllEntity(new Serial());
+        listPosition = dao.getAllEntity(new Position());
+        ArrayList<EntityDB> persons = dao.getAllEntity(new Person());
         Serial copySerial;
         if (request.getParameter("action") != null) {
             if (request.getParameter("serialId") != null) {
@@ -62,16 +69,28 @@
                     dao.addEntity(new Serial(title, Integer.parseInt(yearStart), Integer.parseInt(yearFinish),
                             Integer.parseInt(numEpisodes), Integer.parseInt(numSeasons), Double.parseDouble(imdb)));
                 } else if (!request.getParameter("serialId").equals("")) {
-                    int id = Integer.parseInt(request.getParameter("serialId"));
+                    int serialId = Integer.parseInt(request.getParameter("serialId"));
                     String title = request.getParameter("title");
                     String yearStart = request.getParameter("yearStart");
                     String yearFinish = request.getParameter("yearFinish");
                     String numEpisodes = request.getParameter("numEpisodes");
                     String numSeasons = request.getParameter("numSeasons");
                     String imdb = request.getParameter("imdb");
-                    Serial newFilm = new Serial(id, title, Integer.parseInt(yearStart), Integer.parseInt(yearFinish),
+                    Serial newSerial = new Serial(serialId, title, Integer.parseInt(yearStart), Integer.parseInt(yearFinish),
                             Integer.parseInt(numEpisodes), Integer.parseInt(numSeasons), Double.parseDouble(imdb));
-                    dao.updateEntity(newFilm);
+                    for (int i = 0; i < listPosition.size(); i++) {
+                        Position pos = (Position) listPosition.get(i);
+                        for (int j = 0; j < persons.size(); j++) {
+                            Person person = (Person) persons.get(j);
+                            if (request.getParameter("check" + person.getId()) != null) {
+                                String position = request.getParameter("position" + person.getId());
+                                if (position.equals(pos.getNamePosition())) {
+                                    dao.setProjectToPerson("serial", serialId, person.getId(), pos.getId());
+                                }
+                            }
+                        }
+                    }
+                    dao.updateEntity(newSerial);
                 }
             } else {
                 for (int i = 0; i < listSerial.size(); i++) {

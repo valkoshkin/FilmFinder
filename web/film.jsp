@@ -29,7 +29,12 @@
 <jsp:include page="_menu.jsp"/>
 <%@page import="com.filmlibrary.DAO" %>
 <%@page import="com.filmlibrary.entities.Film" %>
+<%@ page import="com.filmlibrary.entities.Position" %>
+<%@ page import="com.filmlibrary.entities.EntityDB" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.filmlibrary.entities.Person" %>
 <jsp:useBean id="listFilm" class="java.util.ArrayList" scope="application"/>
+<jsp:useBean id="listPosition" class="java.util.ArrayList" scope="application"/>
 <form action="film.jsp" method="post">
     <input type="text" name="search">
     <select name="column">
@@ -46,6 +51,8 @@
         DAO dao = new DAO();
         request.setCharacterEncoding("UTF-8");
         listFilm = dao.getAllEntity(new Film());
+        listPosition = dao.getAllEntity(new Position());
+        ArrayList<EntityDB> persons = dao.getAllEntity(new Person());
         Film copyFilm;
         if (request.getParameter("action") != null) {
             if (request.getParameter("filmId") != null) {
@@ -60,8 +67,20 @@
                     String length = request.getParameter("length");
                     String imdb = request.getParameter("imdb");
                     String issueYear = request.getParameter("issueYear");
-                    int id = Integer.parseInt(request.getParameter("filmId"));
-                    Film newFilm = new Film(id, title, Integer.parseInt(issueYear), Double.parseDouble(imdb), Integer.parseInt(length));
+                    int filmId = Integer.parseInt(request.getParameter("filmId"));
+                    Film newFilm = new Film(filmId, title, Integer.parseInt(issueYear), Double.parseDouble(imdb), Integer.parseInt(length));
+                    for (int i = 0; i < listPosition.size(); i++) {
+                        Position pos = (Position) listPosition.get(i);
+                        for (int j = 0; j < persons.size(); j++) {
+                            Person person = (Person) persons.get(j);
+                            if (request.getParameter("check" + person.getId()) != null) {
+                                String position = request.getParameter("position" + person.getId());
+                                if (position.equals(pos.getNamePosition())) {
+                                    dao.setProjectToPerson("film", filmId, person.getId(), pos.getId());
+                                }
+                            }
+                        }
+                    }
                     dao.updateEntity(newFilm);
                 }
             } else {

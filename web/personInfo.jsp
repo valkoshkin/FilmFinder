@@ -27,7 +27,6 @@
         serialsAsDirector = dao.getProjectsByPerson("serial", "Режиссер", id, new Serial());
     } else {
         person = null;
-
     }
 %>
 <form method='POST' action='personView.jsp'>
