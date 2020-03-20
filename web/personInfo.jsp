@@ -44,10 +44,10 @@
     <b>Жанры:</b> тут жанры
     <br><br>
     <b>Всего фильмов:</b>
-<%--    <%--%>
-<%--        DAO dao = new DAO();--%>
-<%--        out.print(dao.getNumOfProjects("film", person.getId()));--%>
-<%--    %>--%>
+    <%
+        DAO dao = new DAO();
+        out.print(dao.getNumOfProjects("film", person.getId()));
+    %>
 </form>
 <%
     out.println("<link rel=\"stylesheet\" type=\"text/css\" href=\"styles.css\"><html>");
