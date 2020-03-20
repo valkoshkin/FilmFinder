@@ -2,6 +2,7 @@ package com.filmlibrary;
 
 import com.filmlibrary.entities.EntityDB;
 import com.filmlibrary.entities.Film;
+import com.filmlibrary.entities.Person;
 
 import javax.swing.text.html.parser.Entity;
 import java.sql.*;
@@ -158,6 +159,29 @@ public class DAO {
         return entities;
     }
 
+    public ArrayList<EntityDB> getPersonByProject(String projectType, String position, int entityId, EntityDB entityDB){
+        ArrayList<EntityDB> entities = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select distinct * " +
+                    "from person " +
+                    "where id_person in " +
+                    "      (select id_person " +
+                    "       from " + projectType + "_person" +
+                    "       where id_position in (select id_position" +
+                    "              from position" +
+                    "              where name_position = ?) and id_" + projectType + " = ?)");
+            preparedStatement.setString(1, position);
+            preparedStatement.setInt(2, entityId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                entities.add(getEntity(resultSet, entityDB));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entities;
+    }
+
     public void setProjectToPerson(String projectType, int projectId, int personId, int positionId) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("insert into " + projectType + "_person " +
@@ -190,8 +214,11 @@ public class DAO {
 
     public static void main(String[] arg) {
         DAO dao = new DAO();
-        ArrayList<EntityDB> list = dao.getAllEntity(new Film());
-        System.out.println(list.get(1));
+        ArrayList<EntityDB> listPerson = dao.getPersonByProject("serial", "Актер", 1, new Person());
+        for(int i = 0; i < listPerson.size(); i++){
+            System.out.println(listPerson.get(i));
+        }
+
     }
 }
 

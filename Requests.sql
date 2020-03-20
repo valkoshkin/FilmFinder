@@ -22,15 +22,14 @@ where id_serial in
               where first_name = 'Кристофер'));
 
 --Вывести всех актеров, соответствующих заданному фильму
-select distinct first_name, second_name, birthday, country
+select distinct *
 from person
 where id_person in
       (select id_person
        from film_person
-       where id_film in
-             (select id_film
-              from film
-              where title = 'Начало'));
+       where id_position in (select id_position
+              from position
+              where name_position = 'Актер') and id_film = 1);
 
 --Вывести всех актеров, соответствующих заданному сериалу
 select distinct first_name, second_name, birthday, country
